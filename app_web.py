@@ -39,6 +39,14 @@ st.markdown("""
     /* Fondo general */
     .stApp { background-color: #f5f7fa; }
 
+    /* Separadores horizontales (líneas finas azules) */
+    hr {
+        height: 1px !important;
+        background-color: #1f4e79 !important;
+        border: none !important;
+        margin: 15px 0 !important;
+    }
+
     /* Encabezado principal */
     .main-header {
         background: linear-gradient(135deg, #1f4e79 0%, #2e75b6 100%);
@@ -56,7 +64,7 @@ st.markdown("""
         background: white;
         border-radius: 8px;
         padding: 16px 20px;
-        margin-bottom: 10px;
+        margin-bottom: 15px; /* Ajustado para dar aire */
         border-left: 4px solid #1f4e79;
         box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     }
@@ -113,7 +121,6 @@ st.markdown("""
     .stAlert { border-radius: 8px; }
 </style>
 """, unsafe_allow_html=True)
-
 
 # =============================================================================
 # DATOS ESTÁTICOS
