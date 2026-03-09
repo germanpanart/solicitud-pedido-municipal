@@ -238,6 +238,16 @@ def generar_pdf_bytes(datos: dict) -> bytes:
 
     contenido = []
 
+    # Fecha de generación
+    fecha_generacion = datos.get("Fecha de generación", "")
+    contenido.append(
+        Paragraph(
+            f"<para alignment='right'><font size=9>Fecha de generación: {fecha_generacion}</font></para>",
+            styles["Normal"]
+        )
+    )
+    contenido.append(Spacer(1, 10))
+
     # TÍTULO
     contenido.append(Paragraph("FORMULARIO DE SOLICITUD DE PEDIDO (SP)", estilo_titulo))
     contenido.append(Spacer(1, 20))
@@ -398,6 +408,9 @@ def generar_excel_bytes(datos: dict) -> bytes:
 
         # Encabezados (solo primera vez)
         claves = [k for k in datos.keys() if not k.endswith("_EXCEL")]
+        if "Fecha de generación" not in claves:
+            claves.append("Fecha de generación")
+
         encabezados = [MAPEO_ENCABEZADOS.get(campo, campo) for campo in claves]
         ws.append(encabezados)
 
@@ -422,7 +435,10 @@ def generar_excel_bytes(datos: dict) -> bytes:
         else:
             valor = datos.get(clave_a_buscar, "")
 
-        fila.append(valor)
+        if encabezado_excel == "Fecha de generación":
+            fila.append(datos.get("Fecha de generación", ""))
+        else:
+            fila.append(valor)
 
     ws.append(fila)
 
@@ -799,7 +815,11 @@ if generar_clicked:
         if fuente_val == "— Seleccionar —":
             fuente_val = ""
 
+        fecha_generacion = datetime.now().strftime("%d/%m/%Y %H:%M")
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+      
         datos = {
+            "Fecha de generación": fecha_generacion,
             "Unidad Ejecutora": unidad_val,
             "Jurisdicción": juris_val,
             "Fuente de Financiamiento": fuente_val,
@@ -820,7 +840,6 @@ if generar_clicked:
         }
 
         # ── Generación ────────────────────────────────────────────────────────
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         nombre_base = f"Solicitud_Pedido_{timestamp}"
 
         with st.spinner("Generando documentos…"):
