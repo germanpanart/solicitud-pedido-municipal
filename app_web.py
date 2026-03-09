@@ -19,6 +19,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import cm
 from reportlab.platypus import (Paragraph, SimpleDocTemplate, Spacer, Table,
                                 TableStyle)
+from zoneinfo import ZoneInfo
 
 # =============================================================================
 # CONFIGURACIÓN DE PÁGINA
@@ -815,8 +816,10 @@ if generar_clicked:
         if fuente_val == "— Seleccionar —":
             fuente_val = ""
 
-        fecha_generacion = datetime.now().strftime("%d/%m/%Y %H:%M")
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        now = datetime.now(ZoneInfo("America/Argentina/Buenos_Aires"))
+        
+        fecha_generacion = now.strftime("%d/%m/%Y %H:%M")
+        timestamp = now.strftime("%Y%m%d_%H%M%S")
       
         datos = {
             "Fecha de generación": fecha_generacion,
