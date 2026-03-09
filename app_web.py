@@ -39,12 +39,15 @@ st.markdown("""
     /* Fondo general */
     .stApp { background-color: #f5f7fa; }
 
-    /* Separadores horizontales (líneas finas azules) */
-    hr {
-        height: 1px !important;
-        background-color: #1f4e79 !important;
-        border: none !important;
-        margin: 15px 0 !important;
+    /* Eliminar el contenedor extra que genera Streamlit alrededor de los bloques */
+    div[data-testid="stVerticalBlock"] {
+        gap: 0rem !important;
+    }
+    
+    /* Eliminar márgenes internos por defecto */
+    .block-container {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
     }
 
     /* Encabezado principal */
@@ -53,72 +56,51 @@ st.markdown("""
         color: white;
         padding: 20px 24px;
         border-radius: 10px;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         box-shadow: 0 4px 16px rgba(31,78,121,0.18);
     }
-    .main-header h1 { margin: 0; font-size: 1.8rem; font-weight: 800; letter-spacing: 0.5px; }
+    .main-header h1 { margin: 0; font-size: 1.8rem; font-weight: 800; color: white !important; }
     .main-header p  { margin: 4px 0 0; font-size: 0.95rem; opacity: 0.9; }
 
-    /* Tarjetas de sección - MÁS COMPACTAS */
+    /* Tarjetas de sección - Estilo limpio */
     .section-card {
         background: white;
         border-radius: 8px;
-        padding: 16px 20px;
-        margin-bottom: 15px; /* Ajustado para dar aire */
+        padding: 20px;
+        margin-bottom: 20px;
         border-left: 4px solid #1f4e79;
         box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     }
     .section-title {
         color: #1f4e79;
-        font-size: 1.05rem;
+        font-size: 1.1rem;
         font-weight: 700;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         border-bottom: 1px solid #eef2f7;
-        padding-bottom: 6px;
+        padding-bottom: 10px;
     }
 
+    /* Ajuste de widgets dentro de la tarjeta */
+    .stSelectbox, .stTextArea, .stTextInput, .stNumberInput, .stRadio {
+        margin-bottom: 5px !important;
+    }
+    
+    /* Labels de los inputs */
+    label { font-weight: 600 !important; color: #1f4e79 !important; }
+
     /* Tabla de artículos */
-    .articulos-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.9rem;
-        margin-top: 5px;
-    }
-    .articulos-table th {
-        background: #1f4e79;
-        color: white;
-        padding: 6px 10px;
-        text-align: left;
-        font-weight: 600;
-    }
-    .articulos-table td {
-        padding: 5px 10px;
-        border-bottom: 1px solid #e8eef4;
-    }
+    .articulos-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 10px; }
+    .articulos-table th { background: #1f4e79; color: white; padding: 8px; text-align: left; }
+    .articulos-table td { padding: 8px; border-bottom: 1px solid #e8eef4; }
     .articulos-table tr:nth-child(even) td { background: #f4f8fc; }
 
     /* Botón principal */
-    div[data-testid="stDownloadButton"] > button,
-    .stButton > button.generar-btn {
-        background: linear-gradient(135deg, #1f4e79, #2e75b6);
-        color: white;
-        font-weight: 700;
-        border-radius: 6px;
-        padding: 8px 30px;
-        border: none;
-        box-shadow: 0 3px 6px rgba(31,78,121,0.2);
+    div[data-testid="stDownloadButton"] > button, .stButton > button {
+        background: linear-gradient(135deg, #1f4e79, #2e75b6) !important;
+        color: white !important;
+        font-weight: 700 !important;
+        border-radius: 6px !important;
     }
-
-    /* Sidebar */
-    section[data-testid="stSidebar"] { background: #1f4e79 !important; }
-    section[data-testid="stSidebar"] * { color: white !important; }
-
-    /* Inputs */
-    .stSelectbox label, .stTextArea label, .stTextInput label,
-    .stNumberInput label, .stRadio label { font-weight: 600 !important; color: #1f4e79 !important; margin-bottom: -5px !important; }
-
-    /* Alerta de error */
-    .stAlert { border-radius: 8px; }
 </style>
 """, unsafe_allow_html=True)
 
